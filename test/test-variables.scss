@@ -1,0 +1,17 @@
+@import 'test-imported';
+
+$red: red !default;
+$hexGreen: #0f0;
+$size: 12px;
+$lightenRed: lighten($red, 0.5);
+$override: red;
+$override: green;
+$noOverride: green;
+$noOverride: red !default;
+
+// $commented: red;
+/* $commented: red; */
+
+.arbitraryClass{
+  color: $red;
+}
