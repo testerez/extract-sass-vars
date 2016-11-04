@@ -8,6 +8,15 @@ $override: red;
 $override: green;
 $noOverride: green;
 $noOverride: red !default;
+$font: italic bold 12px/30px Georgia, serif;
+
+$key: k;
+$map: (
+  a: 1,
+  b: something,
+  c: 'something, else',
+  $key: value,
+);
 
 // $commented: red;
 /* $commented: red; */

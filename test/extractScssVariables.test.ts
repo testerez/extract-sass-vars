@@ -13,6 +13,13 @@ describe('extractScssVariables', function() {
     assert.equal(vars['$lightenRed'], '#ff0303'); 
     assert.equal(vars['$override'], 'green');
     assert.equal(vars['$noOverride'], 'green');
+    assert.equal(vars['$font'], 'italic bold 12px/30px Georgia, serif');
+    assert.deepEqual(vars['$map'], {
+      a: 1,
+      b: 'something',
+      c: 'something, else',
+      k: 'value',
+    });
     assert(!('$commented' in vars));
   });
 

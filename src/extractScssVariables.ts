@@ -4,12 +4,7 @@ import * as path from 'path';
 import {uniq} from 'lodash';
 
 function getSassToJsSassPath(){
-  const jsPath = require.resolve('sass-to-js');
-  const root = jsPath.replace(
-    /(node_modules.sass-to-js).+/,
-    (m, p1) => p1
-  )
-  return path.join(root, 'sass/sass-to-js');
+  return path.join(__dirname, 'sass/sass-to-js');
 }
 
 const BOUNDARY = '__JSON_CONTENT_BOUNDARY__';
