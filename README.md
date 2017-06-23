@@ -54,12 +54,13 @@ it will output
 ### Help
 
 ```
-Usage: extract-sass-vars <file.scss> [args]
+Usage: extract-sass-vars <file1.scss> <file2.scss>... [args]
 
 Options:
-  --include-path  Path to look for imported scss files. If many, join withcommas.
+  --include-path  Path to look for imported scss files.
+                  You can specify it many times.
   -v              verbose
-  -h              Show help                                            
+  -h              Show help
 ```
 
 ### PRs are welcome!

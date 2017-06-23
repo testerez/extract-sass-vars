@@ -5,32 +5,47 @@ import extractScssVariables from './extractScssVariables';
 import * as _yargs from 'yargs';
 
 const yargs = _yargs
-  .usage('Usage: extract-sass-vars <file.scss> [args]')
+  .usage('Usage: extract-sass-vars <file1.scss> <file2.scss>... [args]')
   .option('include-path', {
-    describe: 'Path to look for imported scss files. If many, join with commas.',
+    describe: 'Path to look for imported scss files.\nYou can specify it many times.',
   })
   .option('v', {describe: 'verbose'})
   .help('h')
   .showHelpOnFail(true);
 const { argv } = yargs;
 
+const resolvePathsArg = (arg: string | string[]) => {
+  if (!arg) {
+    return [];
+  }
+  if (!Array.isArray(arg)) {
+    arg = [arg];
+  }
+  return arg
+    .filter((s: string) => s)
+    .map((s: string) => path.resolve(s));
+}
+
 try {
-  const filePath = argv._[0];
-  if (!filePath) {
+  if (!argv._.length) {
     yargs.showHelp();
     throw '';
   }
-  const fullFilePath = path.resolve(filePath);
+  
 
-  const result = extractScssVariables(
-    fullFilePath,
-    {
-      includePaths: (argv.includePath || '')
-        .split(',')
-        .filter((s: string) => s)
-        .map((s: string) => path.resolve(s))
-    }
-  );
+  const results = resolvePathsArg(argv._)
+    .map(scssPath => extractScssVariables(
+      scssPath,
+      {
+        includePaths: resolvePathsArg(argv.includePath),
+      }
+    ));
+  
+  // Merge all vars from many files together
+  const result = results.reduce((acc, o) => ({
+    ...acc,
+    ...o,
+  }), {})
 
   console.log(JSON.stringify(result, null, 2,));
 } catch (error) {
