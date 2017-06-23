@@ -1,5 +1,6 @@
-@import 'test-imported';
+@import 'partials/test-imported';
 
+$importedCopy: $imported;
 $red: red !default;
 $hexGreen: #0f0;
 $size: 12px;

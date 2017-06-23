@@ -9,11 +9,12 @@ describe('extractScssVariables', function() {
     const symbols = symbolsParser.parseSymbols(
       require('fs').readFileSync(path.join(__dirname, 'test-variables.scss'), 'utf8')
     );
-    console.log(symbols);
 
     var vars = extractScssVariables(
       path.join(__dirname, 'test-variables.scss')
     );
+    assert.equal(vars['$imported'], 'white');
+    assert.equal(vars['$importedCopy'], 'white');
     assert.equal(vars['$red'], 'red');
     assert.equal(vars['$hexGreen'], '#0f0');
     assert.equal(vars['$size'], '12px');
@@ -35,5 +36,16 @@ describe('extractScssVariables', function() {
       path.join(__dirname, 'test-empty.scss')
     );
     assert.deepEqual(vars, {});
+  });
+
+  it('supports includePath', function() {
+    var vars = extractScssVariables(
+      path.join(__dirname, 'test-includePath.scss'),
+      {
+        includePaths: [path.join(__dirname, 'partials')]
+      }
+    );
+    assert.equal(vars['$imported'], 'white');
+    assert.equal(vars['$importedCopy'], 'white');
   });
 });

@@ -9,7 +9,7 @@ function getSassToJsSassPath(){
 
 const BOUNDARY = '__JSON_CONTENT_BOUNDARY__';
 
-export default function extractScssVariables(sassFilename: string) {
+export default function extractScssVariables(sassFilename: string, options: sass.Options = {}) {
   const content = fs.readFileSync(sassFilename, 'utf8');
 
   // Detect variables declarations.
@@ -42,8 +42,12 @@ export default function extractScssVariables(sassFilename: string) {
   ].join('\n');
 
   const compiled = sass.renderSync({
+    ...options,
     data: scss,
-    includePaths: [path.dirname(sassFilename)],
+    includePaths: [
+      path.dirname(sassFilename),
+      ...(options.includePaths || []),
+    ],
   });
   const css = String(compiled.css);
   const json = new RegExp(`${BOUNDARY}\\s*['"](.+)['"]\\s*${BOUNDARY}`)
