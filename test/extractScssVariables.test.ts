@@ -1,9 +1,16 @@
 import { extractScssVariables } from '../src';
 import * as assert from 'assert';
 import * as path from 'path';
+const symbolsParser = require('scss-symbols-parser');
 
 describe('extractScssVariables', function() {
-  it('should parse variables', function() {
+  it('should parse variables', function () {
+
+    const symbols = symbolsParser.parseSymbols(
+      require('fs').readFileSync(path.join(__dirname, 'test-variables.scss'), 'utf8')
+    );
+    console.log(symbols);
+
     var vars = extractScssVariables(
       path.join(__dirname, 'test-variables.scss')
     );

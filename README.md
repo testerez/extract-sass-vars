@@ -1,33 +1,47 @@
-Usefull links
-- https://github.com/garex/nodejs-color-difference
-- https://github.com/markusn/color-diff
-- VSCode plugin?
+Command line tool to extract variables from SCSS files.
 
-## API
+Setup: `yarn global add extract-sass-vars` or `npm i -g extract-sass-vars`
+Usage: `extract-sass-vars styles.scss`
 
-colorsToVars(
-  palette: object,
-  targedFile: string
-  options?: object 
-)
+Given this SASS file
 
-`palette`
-  object that maps variable names to value
-  ```
-  {
-    '$red': '#f00',
-    '$green': 'rgba(0, 255, 0)',
-  }
-  ```
+```sass
+$red: red !default;
+$hexGreen: #0f0;
+$size: 12px;
+$lightenRed: lighten($red, 0.5);
+$override: red;
+$override: green;
+$noOverride: green;
+$noOverride: red !default;
+$font: italic bold 12px/30px Georgia, serif;
 
-`targedFile`
-  path to file where colors will be swaped
-
-`options`
+$key: k;
+$map: (
+  a: 1,
+  b: something,
+  c: 'something, else',
+  $key: value,
+);
 ```
+
+it will output
+
+```json
 {
-  thershold: 0.8, // minimal color similarity. From 1(same) to 0(white/black)
-  verbose: true,  // log all replacements
-  suggest: true,  // log other matching colors
+  "$red": "red",
+  "$hexGreen": "#0f0",
+  "$size": "12px",
+  "$lightenRed": "#ff0303",
+  "$override": "green",
+  "$noOverride": "green",
+  "$font": "italic bold 12px/30px Georgia, serif",
+  "$key": "k",
+  "$map": {
+    "a": 1,
+    "b": "something",
+    "c": "something, else",
+    "k": "value"
+  }
 }
 ```
