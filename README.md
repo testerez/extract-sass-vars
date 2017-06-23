@@ -50,3 +50,16 @@ it will output
   }
 }
 ```
+
+### Help
+
+```
+Usage: extract-sass-vars <file.scss> [args]
+
+Options:
+  --include-path  Path to look for imported scss files. If many, join withcommas.
+  -v              verbose
+  -h              Show help                                            
+```
+
+### PRs are welcome!
