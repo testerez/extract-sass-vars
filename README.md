@@ -1,7 +1,12 @@
 Command line tool to extract variables from SCSS files.
 
-Setup: `yarn global add extract-sass-vars` or `npm i -g extract-sass-vars`
-Usage: `extract-sass-vars styles.scss`
+### Setup:
+
+`yarn global add extract-sass-vars` or `npm i -g extract-sass-vars`
+
+### Usage:
+
+`extract-sass-vars styles.scss`
 
 Given this SASS file
 
