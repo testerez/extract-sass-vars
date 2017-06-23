@@ -1,4 +1,4 @@
-Command line tool to extract variables from SCSS files.
+Command line tool to extract variables from SCSS files. Outputs a simple JSON key/value.
 
 ### Setup:
 
