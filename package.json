@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
+  "bin": {
+    "extract-sass-vars": "dist/cli.js"
+  },
   "scripts": {
     "test": "mocha ./**/*.test.ts --compilers ts:ts-node/register -wG --watch-extensions ts",
-    "build": "rm -rf dist && tsc -p . --outDir 'dist'"
+    "build": "rm -rf dist && tsc -p . --outDir 'dist'",
+    "deploy": "npm run prepush && npm run build && npm publish",
+    "prepush": "tsc -p . --noEmit && yarn test"
   },
   "keywords": [],
   "author": "",

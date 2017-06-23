@@ -1,12 +1,11 @@
 "use strict";
-var sass = require('node-sass');
-var fs = require('fs');
-var path = require('path');
-var lodash_1 = require('lodash');
+Object.defineProperty(exports, "__esModule", { value: true });
+var sass = require("node-sass");
+var fs = require("fs");
+var path = require("path");
+var lodash_1 = require("lodash");
 function getSassToJsSassPath() {
-    var jsPath = require.resolve('sass-to-js');
-    var root = jsPath.replace(/(node_modules.sass-to-js).+/, function (m, p1) { return p1; });
-    return path.join(root, 'sass/sass-to-js');
+    return path.join(__dirname, 'sass/sass-to-js');
 }
 var BOUNDARY = '__JSON_CONTENT_BOUNDARY__';
 function extractScssVariables(sassFilename) {
@@ -23,13 +22,13 @@ function extractScssVariables(sassFilename) {
         // Original SCSS code
         content,
         // Import SASS function that generates JSON from a SASS map
-        ("@import \"" + getSassToJsSassPath() + "\";")
-    ].concat(variables.map(function (v) { return (v + ": null !default;"); }), [
+        "@import \"" + getSassToJsSassPath() + "\";"
+    ].concat(variables.map(function (v) { return v + ": null !default;"; }), [
         // Create a dummy CSS class that will hold a
         // JSON representation of all detected variables
-        (".bridge {content: " + BOUNDARY + " sassToJs((")
-    ], variables.map(function (v) { return ("'" + v + "': " + v + ","); }), [
-        (")) " + BOUNDARY + ";}"),
+        ".bridge {content: " + BOUNDARY + " sassToJs(("
+    ], variables.map(function (v) { return "'" + v + "': " + v + ","; }), [
+        ")) " + BOUNDARY + ";}",
     ]).join('\n');
     var compiled = sass.renderSync({
         data: scss,
@@ -45,7 +44,6 @@ function extractScssVariables(sassFilename) {
             delete vars[k];
         }
     });
-    return null;
+    return vars;
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = extractScssVariables;
