@@ -37,7 +37,7 @@ try {
     .map(scssPath => extractScssVariables(
       scssPath,
       {
-        includePaths: resolvePathsArg(argv.includePath),
+        includePaths: resolvePathsArg(argv.includePath as any),
       }
     ));
   
